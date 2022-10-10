@@ -1,0 +1,25 @@
+---
+version: "3.6"
+
+networks:
+  frontend:
+    external:
+      name: nginx-proxy
+  backend:
+    external:
+      name: ${COMPOSE_PROJECT_NAME}.backend
+
+services:
+  postgres:
+    image: postgres:10
+    container_name: ${COMPOSE_PROJECT_NAME}.postgres
+    restart: unless-stopped
+    networks:
+      - backend
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    volumes:
+      - ./.data/postgres:/var/lib/postgresql/data
+      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d

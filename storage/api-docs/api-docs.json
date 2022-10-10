@@ -1,0 +1,519 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Carsharing Service API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/cars": {
+            "get": {
+                "tags": [
+                    "V1, Cars"
+                ],
+                "summary": "Get car`s list",
+                "description": "Returns car`s data.",
+                "operationId": "cars.index",
+                "parameters": [
+                    {
+                        "name": "with",
+                        "in": "query",
+                        "description": "With relations",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "owner"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CarCollection"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "V1, Cars"
+                ],
+                "summary": "Store car",
+                "description": "Store car and returns car`s data.",
+                "operationId": "cars.store",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name",
+                        "required": true,
+                        "example": "Nissan"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "Car owner id",
+                        "required": false,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Car"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/cars/{id}": {
+            "get": {
+                "tags": [
+                    "V1, Cars"
+                ],
+                "summary": "Get car",
+                "description": "Returns car data.",
+                "operationId": "cars.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id",
+                        "required": true,
+                        "example": "1"
+                    },
+                    {
+                        "name": "with",
+                        "in": "query",
+                        "description": "With relations",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "owner"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Car"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "V1, Cars"
+                ],
+                "summary": "Destroy car",
+                "description": "Returns delete status.",
+                "operationId": "cars.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "V1, Cars"
+                ],
+                "summary": "Update car",
+                "description": "Update car and returns car`s data.",
+                "operationId": "cars.update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id",
+                        "required": true,
+                        "example": "1"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name",
+                        "required": false,
+                        "example": "Nissan"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "Car owner id",
+                        "required": false,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Car"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/users": {
+            "get": {
+                "tags": [
+                    "V1, Users"
+                ],
+                "summary": "Get user`s list",
+                "description": "Returns user`s data.",
+                "operationId": "users.index",
+                "parameters": [
+                    {
+                        "name": "with",
+                        "in": "query",
+                        "description": "With relations",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "car"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserCollection"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "V1, Users"
+                ],
+                "summary": "Store user",
+                "description": "Store user and returns user`s data.",
+                "operationId": "users.store",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name",
+                        "required": true,
+                        "example": "Ivan"
+                    },
+                    {
+                        "name": "car_id",
+                        "in": "query",
+                        "description": "Car id",
+                        "required": false,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/{id}": {
+            "get": {
+                "tags": [
+                    "V1, Users"
+                ],
+                "summary": "Get user",
+                "description": "Returns user data.",
+                "operationId": "users.show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id",
+                        "required": true,
+                        "example": "1"
+                    },
+                    {
+                        "name": "with",
+                        "in": "query",
+                        "description": "With relations",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "car"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "V1, Users"
+                ],
+                "summary": "Destroy user",
+                "description": "Returns delete status.",
+                "operationId": "users.delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "V1, Users"
+                ],
+                "summary": "Update user",
+                "description": "Update user and returns user`s data.",
+                "operationId": "users.update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id",
+                        "required": true,
+                        "example": "1"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name",
+                        "required": false,
+                        "example": "Ivan"
+                    },
+                    {
+                        "name": "car_id",
+                        "in": "query",
+                        "description": "Car id",
+                        "required": false,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CarCollection": {
+                "title": "Car Collection",
+                "properties": {
+                    "data": {
+                        "title": "Car Collection",
+                        "description": "Currencies",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Car"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CarCollection"
+                }
+            },
+            "Car": {
+                "title": "Car",
+                "description": "Car model",
+                "properties": {
+                    "id": {
+                        "description": "Car.",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Nissan"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "owner": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "created_at": {
+                        "type": "date-time",
+                        "readOnly": "true",
+                        "example": "2022-01-01 00:00:00"
+                    },
+                    "updated_at": {
+                        "type": "date-time",
+                        "readOnly": "true",
+                        "example": "2022-01-01 00:00:00"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Car"
+                }
+            },
+            "UserCollection": {
+                "title": "User Collection",
+                "properties": {
+                    "data": {
+                        "title": "User Collection",
+                        "description": "Currencies",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserCollection"
+                }
+            },
+            "User": {
+                "title": "User",
+                "description": "User model",
+                "properties": {
+                    "id": {
+                        "description": "User.",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Ivan"
+                    },
+                    "car": {
+                        "$ref": "#/components/schemas/Car"
+                    },
+                    "created_at": {
+                        "type": "date-time",
+                        "readOnly": "true",
+                        "example": "2022-01-01 00:00:00"
+                    },
+                    "updated_at": {
+                        "type": "date-time",
+                        "readOnly": "true",
+                        "example": "2022-01-01 00:00:00"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            }
+        }
+    }
+}
